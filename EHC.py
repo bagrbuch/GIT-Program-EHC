@@ -11,7 +11,7 @@ from scipy.optimize import leastsq
 import datetime
 from scipy import interpolate
 import os
-import Graphs_in_import_data_GUI
+from Graphs_setting import Graphs_in_import_data_GUI
 
 #------------------- Programm to cut the datafile ------------------------------
 
@@ -78,7 +78,7 @@ def detect_linear_region_and_calculate_dpdt(pressure1, window_size=30, threshold
     """
     return last_valid_line_number, slope
 
-# -------------------------Programm for export data-----------------------------------------------------
+# -------------------------Programm for export_data ... .txt file-----------------------------------------------------
 
 def export(chronoamp1, volume, pressure_sensor1_txt, voltage, time1, pressure1, current_density1, forward_flux, back_diffusion, net,EC, voltage_eff, flux_eff, work_eff, integration_forward_flux, integration_back_diff, integration_net, energy_per_mass2, Ieq, Peq, DH, VC, back_diff_eq, d1, DH_peak, DH_interval1, DH_interval2, DH_end, P_peak, P_interval1, P_interval2, P_end, export_directory, additional_pressure_file=None):
 
@@ -213,7 +213,7 @@ def export(chronoamp1, volume, pressure_sensor1_txt, voltage, time1, pressure1, 
     
     fit_data_exp(output_file, DH_mean, round(d1*10**-6,10), VC/1000000, P_peak, volume)
 
-# ------------------------------------------------------------------------------
+# ------------------------------Function for calculation------------------------------------------------
 
 def dataplot(file_path, chronoamp1,pressure_sensor1_txt, additional_file_path,thickness, volume, selected_graphs=None, export_directory=None): #file names, add .txt with the pressure_sensor1 file name
 
@@ -496,6 +496,8 @@ def dataplot(file_path, chronoamp1,pressure_sensor1_txt, additional_file_path,th
 
     Graphs_in_import_data_GUI.graphs_plot (selected_graphs, pot,P_peak,P_interval1, P_interval2, P_end, time1, time2, pressure1, current_density1, forward_flux, back_diffusion, net, energy_per_mass_2, integration_forward_flux, integration_back_diff, integration_net, voltage_eff, flux_eff, work_eff)
 
+#------------------------------Function for plotting graphs (moved to Graphs setting)-------------------
+
 """
 # Assignation of the data
     plt.close('all')
@@ -628,6 +630,8 @@ dataplot("CA", "compression.csv")
 """
 #-------------------------------------------------------------------------            
 #-------------------------------------------------------------------------     
+
+
 # -----------------------------------Function to fit the experimental data------------------------------------------------------
 def fit_data_exp(depressure_file, DH, d, ini, pp, volume):
     A = 5 * 10**-4  # [m2] Active area of the fuel cell

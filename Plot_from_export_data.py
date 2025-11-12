@@ -11,6 +11,9 @@ def percentage(x, pos):
 
 #-------------- Function to plot graphs from the export file--------------------------
 def plot_graphs_from_export(export_file, selected_graphs):
+
+    #-------------- Finding data--------------------------
+
     print("-------Loading data--------\n")
     
     time1, pressure1, pressure1_bar, current_density1, forward_flux, back_diffusion, net_flux, forward_moles, back_moles, net_moles,EC, voltage_eff, flux_eff, work_eff = [], [], [], [], [], [], [], [], [], [], [], [], [], []
@@ -132,8 +135,7 @@ def plot_graphs_from_export(export_file, selected_graphs):
     
     #print(f"Obsah selected_graphs: {selected_graphs}")
 
-    #----------------------------------------------
-    #----------------------------------------------
+    #-------------- Plot graphs from finded data--------------------------
 
     from matplotlib.ticker import FuncFormatter
 
@@ -165,7 +167,6 @@ def plot_graphs_from_export(export_file, selected_graphs):
             ax2.tick_params(axis='y', labelcolor='r')
             
             ax1.grid(True, linestyle='--', linewidth=0.5)
-            #ax1.set_title('Proudová hustota a absolutní tlak na katodycké straně kompresoru')
             fig1.tight_layout()
             plt.show()
 

@@ -228,7 +228,7 @@ class AdvancedApp:
         self.root.destroy()
         
         # Otevře import_data_GUI
-        import import_data_GUI
+        from GUI_potenciostatic import import_data_GUI
         import_data_GUI.open_import_data_GUI()  # Otevře nové GUI
 
     def start_part4(self):
@@ -236,7 +236,7 @@ class AdvancedApp:
         self.root.destroy()
         
         # Otevře import_data_GUI
-        import import_data_GUI_I
+        from GUI_galvanostatic import import_data_GUI_I
         import_data_GUI_I.open_import_data_GUI_I()  # Otevře nové GUI
 
     def start_part2(self):
@@ -244,7 +244,7 @@ class AdvancedApp:
         self.root.destroy()
         
         # Otevře Plot_data_GUI
-        import Plot_data_GUI
+        from GUI_potenciostatic import Plot_data_GUI
         Plot_data_GUI.open_import_data_GUI()  # Otevře nové GUI
 
     def start_part5(self):
@@ -252,19 +252,19 @@ class AdvancedApp:
         self.root.destroy()
         
         # Otevře Plot_data_GUI
-        import Plot_data_GUI_I
+        from GUI_galvanostatic import Plot_data_GUI_I
         Plot_data_GUI_I.open_import_data_GUI_I()  # Otevře nové GUI
 
     def start_part3(self):
         self.root.destroy()
 
-        import compare_data_GUI
+        from GUI_potenciostatic import compare_data_GUI
         compare_data_GUI.open_import_data_GUI()
 
     def start_part6(self):
         self.root.destroy()
 
-        import compare_data_GUI_I
+        from GUI_galvanostatic import compare_data_GUI_I
         compare_data_GUI_I.open_import_data_GUI_I()
 
 

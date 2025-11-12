@@ -3,7 +3,7 @@ import sys
 import tkinter as tk
 import customtkinter as ctk
 from tkinter import filedialog
-from Compare import process_filtered_files
+from Compare_CZ import process_filtered_files
 import GUI
 
 class RedirectText:
@@ -75,7 +75,7 @@ def show_graph():
 
     try:
         print("\n----------------------------------------------\n")
-        from Compare import main
+        from Compare_CZ import main
         
         selected_graphs = [
                 int(graph) for graph, selected in {
@@ -97,7 +97,7 @@ def show_graph():
 
 def TD_graph():
     global output_data
-    from Compare import plot_graph, plot_2d_graph
+    from Compare_CZ import plot_graph, plot_2d_graph
     plot_graph(output_data)
     plot_2d_graph(output_data)
     
@@ -109,7 +109,7 @@ def export():
 
     try:
         print("\n----------------------------------------------\n")
-        from Compare_EN_I import start_LaTeX, export_LaTeX_1, export_LaTeX_2, export_LaTeX_3, end_LaTeX, format
+        from Compare_CZ import start_LaTeX, export_LaTeX_1, export_LaTeX_2, export_LaTeX_3, end_LaTeX, format
 
         LATEX_FILE=start_LaTeX(output_data)  # Inicializace souboru
         export_LaTeX_3(output_data, LATEX_FILE)
