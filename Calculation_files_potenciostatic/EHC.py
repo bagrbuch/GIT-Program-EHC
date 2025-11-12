@@ -11,7 +11,7 @@ from scipy.optimize import leastsq
 import datetime
 from scipy import interpolate
 import os
-from Graphs_setting import Graphs_in_import_data_GUI
+from Graphs_setting import Graphs_in_Data_import_GUI
 
 #------------------- Programm to cut the datafile ------------------------------
 
@@ -494,7 +494,7 @@ def dataplot(file_path, chronoamp1,pressure_sensor1_txt, additional_file_path,th
 
     export(chronoamp1, volume, pressure_sensor1_txt, voltage, time1, pressure1, current_density1, forward_flux, back_diffusion, net,energy_per_mass_2, voltage_eff, flux_eff, work_eff, integration_forward_flux, integration_back_diff, integration_net, energy_per_mass2, Ieq, Peq, DH, VC, back_diff_eq, d1, DH_peak, DH_interval1, DH_interval2, DH_end, P_peak, P_interval1, P_interval2, P_end,  export_directory, additional_pressure_file=additional_file_path)
 
-    Graphs_in_import_data_GUI.graphs_plot (selected_graphs, pot,P_peak,P_interval1, P_interval2, P_end, time1, time2, pressure1, current_density1, forward_flux, back_diffusion, net, energy_per_mass_2, integration_forward_flux, integration_back_diff, integration_net, voltage_eff, flux_eff, work_eff)
+    Graphs_in_Data_import_GUI.graphs_plot (selected_graphs, pot,P_peak,P_interval1, P_interval2, P_end, time1, time2, pressure1, current_density1, forward_flux, back_diffusion, net, energy_per_mass_2, integration_forward_flux, integration_back_diff, integration_net, voltage_eff, flux_eff, work_eff)
 
 #------------------------------Function for plotting graphs (moved to Graphs setting)-------------------
 

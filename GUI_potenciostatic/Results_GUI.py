@@ -65,7 +65,7 @@ def show_graph():
 
     try:
         print("\n----------------------------------------------\n")
-        from Plot_from_export_data import plot_graphs_from_export
+        from Graphs_setting.Graphs_in_Results_GUI import plot_graphs_from_export
 
         if selected_file:
             # Získání seznamu vybraných grafů

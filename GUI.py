@@ -244,8 +244,8 @@ class AdvancedApp:
         self.root.destroy()
         
         # Otevře Plot_data_GUI
-        from GUI_potenciostatic import Plot_data_GUI
-        Plot_data_GUI.open_import_data_GUI()  # Otevře nové GUI
+        from GUI_potenciostatic import Results_GUI
+        Results_GUI.open_import_data_GUI()  # Otevře nové GUI
 
     def start_part5(self):
         # Zavře hlavní okno AdvancedApp

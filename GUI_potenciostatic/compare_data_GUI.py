@@ -97,7 +97,7 @@ def show_graph():
 
 def TD_graph():
     global output_data
-    from Compare_CZ import plot_graph, plot_2d_graph
+    from Graphs_setting.Graphs_in_Data_comparison_GUI import plot_graph, plot_2d_graph
     plot_graph(output_data)
     plot_2d_graph(output_data)
     

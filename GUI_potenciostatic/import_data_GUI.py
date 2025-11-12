@@ -4,8 +4,8 @@ import os
 import sys
 import threading
 import GUI
-import Import_csv as script1
-import EHC as script2  # Import externího skriptu pro vykreslení grafu
+from Calculation_files_potenciostatic import Import_csv as script1
+from Calculation_files_potenciostatic import EHC as script2  # Import externího skriptu pro vykreslení grafu
 
 # Globální proměnné pro cesty k souborům
 file_path = ""

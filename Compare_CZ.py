@@ -4,8 +4,6 @@ import numpy as np
 import tkinter as tk
 import matplotlib.pyplot as plt
 from collections import defaultdict
-from matplotlib.ticker import FuncFormatter
-import colorsys
 import matplotlib.colors as mcolors
 from scipy.optimize import curve_fit
     
@@ -54,17 +52,13 @@ def process_filtered_files(file_list, base_folder, output_text):
     output_text.configure(state=tk.DISABLED)
     return output_data
 
-def percentage(x, pos):
-    """Formátování osy jako procenta."""
-    return f"{x * 100:.1f}%"
-
 import os
 import matplotlib.pyplot as plt
-
+"""
 def plot_graphs_for_group(selected_graphs, group):
-    """
-    Vykreslí porovnávací grafy pro zadanou skupinu souborů.
-    """
+
+    #Vykreslí porovnávací grafy pro zadanou skupinu souborů.
+
     x_value = group["x_value"]
     files = group["files"]
 
@@ -160,7 +154,7 @@ def plot_graphs_for_group(selected_graphs, group):
     plt.show()
 
 def get_hex_color(color_name):
-    """Převede barvu na HEX formát."""
+    #Převede barvu na HEX formát.
     try:
         return mcolors.to_hex(color_name)
     except ValueError:
@@ -173,9 +167,9 @@ def log_fit(x, a, b):
     return a * np.log(x) + b
 
 def plot_graph(output_data):
-    """
-    Vytvoří 2D scatter plot zobrazující pouze průměrné body maximální účinnosti pro každé x_value.
-    """
+    
+    #Vytvoří 2D scatter plot zobrazující pouze průměrné body maximální účinnosti pro každé x_value.
+    
     base_colors = list(mcolors.TABLEAU_COLORS.values())  # Použití předdefinovaných barev
     color_map = {}
     max_efficiency_points = {}
@@ -261,9 +255,9 @@ def plot_graph(output_data):
     plt.show()
 
 def plot_2d_graph(output_data):
-    """
-    Vytvoří 2D graf průměrného Compression rate a tlaku v závislosti na čase.
-    """
+    
+    #Vytvoří 2D graf průměrného Compression rate a tlaku v závislosti na čase.
+    
     base_colors = list(mcolors.TABLEAU_COLORS.values())  # Předdefinované barvy
     color_map = {}
     max_points = []
@@ -363,7 +357,7 @@ def plot_2d_graph(output_data):
 
     plt.show()
 
-
+"""
 
 def start_LaTeX(output_data):
 
@@ -906,6 +900,7 @@ def main(selected_graphs, output_data):
     """
     Hlavní funkce, která spojuje načtení souborů a vykreslování grafů.
     """
+    from Graphs_setting.Graphs_in_Data_comparison_GUI import plot_graphs_for_group
     
     for group in output_data:
         plot_graphs_for_group(selected_graphs, group)
