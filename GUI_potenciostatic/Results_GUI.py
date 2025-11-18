@@ -77,7 +77,8 @@ def show_graph():
                     "4": graph4_var.get(),
                     "5": graph5_var.get(),
                     "6": graph6_var.get(),
-                    "7": graph7_var.get()
+                    "7": graph7_var.get(),
+                    "8": graph8_var.get(),
                 }.items() if selected
             ]
 
@@ -106,7 +107,7 @@ def go_back_to_main():
 # Hlavní GUI
 root = ctk.CTk()
 root.title("File selection in the GUI")
-root.geometry("850x750")
+root.geometry("850x775")
 
 # Horní část (levý a pravý panel vedle sebe)
 frame_top = ctk.CTkFrame(root, corner_radius=10)
@@ -138,6 +139,7 @@ graph4_var = tk.IntVar()
 graph5_var = tk.IntVar()
 graph6_var = tk.IntVar()
 graph7_var = tk.IntVar()
+graph8_var = tk.IntVar()
 
 checkbuttons = [
     ("Current density and pressure vs Time", graph1_var),
@@ -146,7 +148,9 @@ checkbuttons = [
     ("Eenrgy consumption", graph4_var),
     ("Graphs all efficiencies vs Time", graph5_var),
     ("Graph pressure vs Work eff", graph6_var),
-    ("Fit from decompression", graph7_var)
+    ("Graph Net flux vs work eff. pressure", graph8_var),
+    ("Fit from decompression", graph7_var),
+    
 ]
 
 for idx, (text, var) in enumerate(checkbuttons):

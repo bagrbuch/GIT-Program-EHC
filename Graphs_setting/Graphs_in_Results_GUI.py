@@ -264,6 +264,34 @@ def plot_graphs_from_export(export_file, selected_graphs):
             
             plt.show()
 
+        elif graph_name == 8:
+            #------------------------- Net flux vs efficiency -----------------------
+            fig7, (ax8, ax9) = plt.subplots(1, 2, figsize=(10.2, 4.3))
+            
+            ax8.plot(net_flux, work_eff*100, 'r-', label='Work efficiency')
+
+            ax8.set_xlabel('Net flux [mol/s]')
+            ax8.set_ylabel('Efficiency [%]')
+            ax8.tick_params(axis='y')
+
+            #ax8.legend(loc='upper right')
+            ax8.grid(True, linestyle='--', linewidth=0.5)
+            ax8.set_title('Work efficiency vs Net flux')
+
+            ax9.plot(np.array(pressure1)/100, net_flux, 'b-', label='Net flux')
+            ax9.set_xlabel('Pressure [bar]')
+            ax9.set_ylabel('Net flux [mol/s]', color= 'b' )
+            ax9.tick_params(axis='y', labelcolor='b')
+
+            ax10 = ax9.twinx()
+            ax10.plot(np.array(pressure1)/100, work_eff*100, 'r-', label='Work efficiency')
+            ax10.set_ylabel('Work efficeincy [%]', color= 'r' )
+            ax10.tick_params(axis='y', labelcolor='r')
+            ax9.grid(True, linestyle='--', linewidth=0.5)
+            ax9.set_title('Pressure vs Net flux, efficiency')
+
+            plt.show()
+
     #----------------------------------------------
     #----------------------------------------------
 

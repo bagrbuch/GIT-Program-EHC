@@ -32,11 +32,20 @@ def plot_graphs_for_group(selected_graphs, group):
         fig5, ax5 = plt.subplots()
         figs_axes[5] = (fig5, ax5)
 
+    if 6 in selected_graphs:
+        fig7, ax8 = plt.subplots()
+        figs_axes[6] = (fig7, ax8)
+
+    if 6 in selected_graphs:
+        fig8, ax9 = plt.subplots()
+        ax10 = ax9.twinx()
+        figs_axes[7] = (fig8, ax9, ax10)
+
     colors = ['b', 'r', 'g', 'm', 'c']
     color_index = 0
 
     for file in files:
-        time1, pressure1_bar, current_density1, EC, work_eff = [], [], [], [], []
+        time1, pressure1_bar, current_density1, EC, work_eff, net_flux = [], [], [], [], [], []
 
         try:
             with open(file, 'r') as f:
@@ -51,6 +60,7 @@ def plot_graphs_for_group(selected_graphs, group):
                     current_density1.append(float(line[42:67].strip()) / 10**4)
                     EC.append(float(line[227:257].strip()))
                     work_eff.append(float(line[297:317].strip()) * 100)
+                    net_flux.append(float(line[117:137].strip()))
                 except ValueError:
                     continue
         except Exception as e:
@@ -75,6 +85,44 @@ def plot_graphs_for_group(selected_graphs, group):
         if 5 in selected_graphs:
             fig5, ax5 = figs_axes[5]
             ax5.plot(time1, work_eff, label=f'{result}', color=color, linewidth=1.5)
+
+        if 6 in selected_graphs:
+            fig7, ax8 = figs_axes[6]
+            ax8.plot(net_flux, work_eff, color=color, label=f'{result} - Work efficiency', linewidth=1.5)
+            """
+            #------------------------- Net flux vs efficiency -----------------------
+            fig7, (ax8, ax9) = plt.subplots(1, 2, figsize=(10.2, 4.3)) 
+            ax8.plot(net_flux, work_eff*100, 'r-', label='Work efficiency')
+            ax9.plot(np.array(pressure1_bar), net_flux, 'b-', label='Net flux')
+            ax10.plot(np.array(pressure1_bar), work_eff*100, 'r-', label='Work efficiency')
+
+            ax8.set_xlabel('Net flux [mol/s]')
+            ax8.set_ylabel('Efficiency [%]')
+            ax8.tick_params(axis='y')
+
+            #ax8.legend(loc='upper right')
+            ax8.grid(True, linestyle='--', linewidth=0.5)
+            ax8.set_title('Work efficiency vs Net flux')
+
+            
+            ax9.set_xlabel('Pressure [bar]')
+            ax9.set_ylabel('Net flux [mol/s]', color= 'b' )
+            ax9.tick_params(axis='y', labelcolor='b')
+
+            ax10 = ax9.twinx()
+            
+            ax10.set_ylabel('Work efficeincy [%]', color= 'r' )
+            ax10.tick_params(axis='y', labelcolor='r')
+            ax9.grid(True, linestyle='--', linewidth=0.5)
+            ax9.set_title('Pressure vs Net flux, efficiency')
+
+            plt.show()
+            """
+        if 6 in selected_graphs:
+            fig8, ax9, ax10 = figs_axes [7]
+            ax9.plot(pressure1_bar, net_flux, color=color, label=f'{result} - Net flux')
+            ax10.plot(pressure1_bar, work_eff, color=color, label=f'{result} - Work efficiency')
+
 
     # Nastavení popisků, legend atd. - pouze jednou po přidání všech křivek
     if 1 in selected_graphs:
@@ -101,6 +149,21 @@ def plot_graphs_for_group(selected_graphs, group):
         ax5.legend()
         ax5.grid(True, linestyle='--', alpha=0.6)
         ax5.set_title(f'Efficiency vs Time @ U = {x_value} V')
+
+    if 6 in selected_graphs:
+        ax8.set_xlabel('Net flux [mol/s]')
+        ax8.set_ylabel('Efficiency [%]')
+        ax8.tick_params(axis='y')
+        ax8.grid(True, linestyle='--', linewidth=0.5)
+             
+    if 6 in selected_graphs:
+        ax9.set_xlabel('Pressure [bar]')
+        ax9.set_ylabel('Net flux [mol/s]', color= 'b' )
+        ax9.tick_params(axis='y', labelcolor='b')
+        ax9.grid(True, linestyle='--', linewidth=0.5)
+        ax9.set_title('Pressure vs Net flux, efficiency')
+        ax10.set_ylabel('Work efficeincy [%]', color= 'r' )
+        ax10.tick_params(axis='y', labelcolor='r')
 
     plt.show()
 

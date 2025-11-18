@@ -59,10 +59,10 @@ def graphs_plot (selected_graphs, pot,P_peak,P_interval1, P_interval2, P_end, ti
         elif str(graph_name) == "2":
             fig5, ax5 = plt.subplots(figsize=(7.1, 4.3))
 
-            ax5.plot(pressure1, np.array(y2)/1e4, 'b-', label='Relative pressure [kPa]')
+            ax5.plot(np.array(pressure1)/100, np.array(y2)/1e4, 'b-', label='Relative pressure [Bar]')
             ax5.set_xlabel('Relative pressure [kPa]')
-            ax5.set_ylabel('Current density [A/cm²]', color='b')
-            ax5.tick_params(axis='y', labelcolor='b')
+            ax5.set_ylabel('Current density [A/cm²]')
+            ax5.tick_params(axis='y')
 
             ax5.legend(loc='upper right')
             ax5.grid(True, linestyle='--', linewidth=0.5)
@@ -130,6 +130,36 @@ def graphs_plot (selected_graphs, pot,P_peak,P_interval1, P_interval2, P_end, ti
             ax4.legend(loc='center right')
             ax4.set_title('Efficiency – %.2f V' % voltage)
             plt.tight_layout()
+
+    #------------------------- Net flux vs efficiency -----------------------
+        elif str(graph_name) == "6":
+            fig7, (ax8, ax9) = plt.subplots(1, 2, figsize=(10.2, 4.3))
+            
+            ax8.plot(y5, work_eff*100, 'r-', label='Work efficiency')
+
+            ax8.set_xlabel('Net flux [mol/s]')
+            ax8.set_ylabel('Efficiency [%]')
+            ax8.tick_params(axis='y')
+
+            #ax8.legend(loc='upper right')
+            ax8.grid(True, linestyle='--', linewidth=0.5)
+            ax8.set_title('Work efficiency vs Net flux – %.2f V' % voltage)
+
+            ax9.plot(np.array(pressure1)/100, y5, 'b-', label='Net flux')
+            ax9.set_xlabel('Pressure [bar]')
+            ax9.set_ylabel('Net flux [mol/s]', color= 'b' )
+            ax9.tick_params(axis='y', labelcolor='b')
+
+            ax10 = ax9.twinx()
+            ax10.plot(np.array(pressure1)/100, work_eff*100, 'r-', label='Work efficiency')
+            ax10.set_ylabel('Work efficeincy [%]', color= 'r' )
+            ax10.tick_params(axis='y', labelcolor='r')
+            ax9.grid(True, linestyle='--', linewidth=0.5)
+            ax9.set_title('Pressure vs Net flux, efficiency – %.2f V' % voltage)
+
+            plt.tight_layout()
+
+    
 
     plt.show()
     return ()

@@ -82,6 +82,7 @@ def show_graph():
                     "1": graph1_var.get(),
                     "4": graph4_var.get(),
                     "5": graph5_var.get(),
+                    "6": graph6_var.get(),
                 }.items() if selected
             ]
             
@@ -212,13 +213,14 @@ frame_right = ctk.CTkFrame(frame_top, corner_radius=10)
 frame_right.grid(row=0, column=1, padx=10, pady=10, sticky="nsew")
 
 
-graph1_var, graph2_var, graph3_var, graph4_var, graph5_var = tk.IntVar(), tk.IntVar(), tk.IntVar(), tk.IntVar(), tk.IntVar()
+graph1_var, graph2_var, graph3_var, graph4_var, graph5_var, graph6_var = tk.IntVar(), tk.IntVar(), tk.IntVar(), tk.IntVar(), tk.IntVar(), tk.IntVar()
 
 # Remove the "Current density vs Pressure" and "Flow diffusion plot" options
 checkbuttons = [
     ("Current density and pressure Vs time plot", graph1_var),
     ("Energy consumption", graph4_var),
-    ("Graphs all efficiencies vs time", graph5_var)]
+    ("Graphs all efficiencies vs time", graph5_var),
+    ("Graphs of net flux vs efficiency", graph6_var)]
 
 # Re-create the checkboxes with the updated list
 for idx, (text, var) in enumerate(checkbuttons):

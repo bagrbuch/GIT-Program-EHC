@@ -94,6 +94,7 @@ def show_graph():
                 "3": graph3_var.get(),
                 "4": graph4_var.get(),
                 "5": graph5_var.get(),
+                "6": graph6_var.get()
             }.items() if selected
         ]
 
@@ -128,6 +129,7 @@ def reset_app():
     graph3_var.set(False)
     graph4_var.set(False)
     graph5_var.set(False)
+    graph6_var.set(False)
 
     # Reset progress baru
     progress_bar.stop()
@@ -172,6 +174,7 @@ graph2_var = ctk.BooleanVar()
 graph3_var = ctk.BooleanVar()
 graph4_var = ctk.BooleanVar()
 graph5_var = ctk.BooleanVar()
+graph6_var = ctk.BooleanVar()
 
 # Levý rámeček - Funkce na importování dat
 frame_left = ctk.CTkFrame(root, corner_radius=10)
@@ -225,7 +228,8 @@ checkbuttons = [
     ("Current density vs Pressure", graph2_var),
     ("Flow diffusion", graph3_var),
     ("Graph energy consumption", graph4_var),
-    ("Graphs all efficiencies vs time", graph5_var)
+    ("Graphs all efficiencies vs time", graph5_var),
+    ("Graph Net flux vs work eff. pressure", graph6_var)
 ]
 for idx, (text, var) in enumerate(checkbuttons):
     ctk.CTkCheckBox(frame_right, text=text, variable=var).grid(row=idx+2, column=0, padx=10, pady=5, sticky="w")
