@@ -145,12 +145,11 @@ checkbuttons = [
     ("Current density and pressure vs Time", graph1_var),
     ("Current density vs Pressure", graph2_var),
     ("Flow diffusion", graph3_var),
-    ("Eenrgy consumption", graph4_var),
+    ("Energy consumption", graph4_var),
     ("Graphs all efficiencies vs Time", graph5_var),
     ("Graph pressure vs Work eff", graph6_var),
     ("Graph Net flux vs work eff. pressure", graph8_var),
     ("Fit from decompression", graph7_var),
-    
 ]
 
 for idx, (text, var) in enumerate(checkbuttons):

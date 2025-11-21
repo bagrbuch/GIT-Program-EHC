@@ -6,8 +6,6 @@ import numpy as np
 from matplotlib.ticker import FuncFormatter
 from scipy import optimize as o
 import csv
-from scipy.integrate import simpson
-from scipy.stats import linregress
 from scipy.optimize import leastsq
 import datetime
 from scipy import interpolate

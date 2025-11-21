@@ -1,8 +1,9 @@
 import numpy as np
+import matplotlib
 import matplotlib.pyplot as plt
-#from matplotlib.ticker import FuncFormatter
+from matplotlib.ticker import FuncFormatter
+matplotlib.use('TkAgg')
 from scipy.optimize import leastsq
-#from datetime import datetime
 
 #------------------ Function to format percentage ------------------------------------
 def percentage(x, pos):
@@ -137,7 +138,6 @@ def plot_graphs_from_export(export_file, selected_graphs):
 
     #-------------- Plot graphs from finded data--------------------------
 
-    from matplotlib.ticker import FuncFormatter
 
     plt.rcParams.update({
         'font.size': 12,
@@ -150,34 +150,44 @@ def plot_graphs_from_export(export_file, selected_graphs):
         'lines.linewidth': 2,
     })
 
+    colors = plt.cm.tab10.colors
+    color_index = 0
+    color = colors[color_index % len(colors)]
+
     for graph_name in selected_graphs:
 
         if graph_name == 1:
             # ------------------- Proudová hustota a tlak vs čas ------------------------
             fig1, ax1 = plt.subplots(figsize=(7.1, 4.3))
 
-            ax1.plot(time1, pressure1_bar, 'b-', label='Pressure [bar]')
+            ax1.plot(time1, pressure1_bar, color=color, label='Pressure [bar]')
             ax1.set_xlabel('Time [hours]')
-            ax1.set_ylabel('Pressure [bar]', color='b')
-            ax1.tick_params(axis='y', labelcolor='b')
+            ax1.set_ylabel('Pressure [bar]', color=color)
+            ax1.tick_params(axis='y', labelcolor=color)
             
+            color_index = color_index+1
+            color = colors[color_index % len(colors)]
+
             ax2 = ax1.twinx()
-            ax2.plot(time1, current_density1, 'r-', label='Current density [A/cm²]')
-            ax2.set_ylabel('Current density [A/cm²]', color='r')
-            ax2.tick_params(axis='y', labelcolor='r')
+            ax2.plot(time1, current_density1, color=color, label='Current density [A/cm²]')
+            ax2.set_ylabel('Current density [A/cm²]', color=color)
+            ax2.tick_params(axis='y', labelcolor=color)
             
             ax1.grid(True, linestyle='--', linewidth=0.5)
             fig1.tight_layout()
             plt.show()
 
+            color_index = 0
+            color = colors[color_index % len(colors)]
+
         elif graph_name == 2:
             # ------------------- Proudová hustota vs tlak ------------------------
             fig5, ax5 = plt.subplots(figsize=(7.1, 4.3))
 
-            ax5.plot(pressure1, current_density1, 'b-', label='Current density vs Pressure')
+            ax5.plot(pressure1, current_density1, color=color, label='Current density vs Pressure')
             ax5.set_xlabel('Pressure [kPa]')
-            ax5.set_ylabel('Current density [A/cm²]', color='b')
-            ax5.tick_params(axis='y', labelcolor='b')
+            ax5.set_ylabel('Current density [A/cm²]')
+            ax5.tick_params(axis='y')
 
             ax5.legend(loc='upper right')
             ax5.grid(True, linestyle='--', linewidth=0.5)
@@ -189,18 +199,27 @@ def plot_graphs_from_export(export_file, selected_graphs):
             # --------------------- Difuze toku a přenesené moly ------------------------
             fig, (ax3, ax4) = plt.subplots(1, 2, figsize=(10.2, 4.3)) 
            
-            ax3.plot(time1, forward_flux, 'b-', label='Forward flux [mol/s]')
-            ax3.plot(time1, back_diffusion, 'r-', label='Backward flux [mol/s]')
-            ax3.plot(time1, net_flux, 'g-', label='Total flux [mol/s]')
+            ax3.plot(time1, forward_flux, color=color, label='Forward flux [mol/s]')
+            ax4.plot(time1, forward_moles, color=color, label='Forward')
+
+            color_index = color_index+1
+            color = colors[color_index % len(colors)]
+
+            ax3.plot(time1, back_diffusion, color=color, label='Backward flux [mol/s]')
+            ax4.plot(time1, back_moles, color=color, label='Back')
+
+            color_index = color_index+1
+            color = colors[color_index % len(colors)]
+
+            ax3.plot(time1, net_flux, color=color, label='Total flux [mol/s]')
+            ax4.plot(time1, net_moles, color=color, label='Total')
+
             ax3.set_xlabel('Time [hours]')
             ax3.set_ylabel('Flux [mol/s]')
             ax3.grid(True, linestyle='--', linewidth=0.5)
             ax3.legend(loc='center right')
             ax3.set_title('Diffusion of flux')
            
-            ax4.plot(time1, forward_moles, 'b-', label='Forward')
-            ax4.plot(time1, back_moles, 'r-', label='Back')
-            ax4.plot(time1, net_moles, 'g-', label='Total')
             ax4.set_xlabel('Time [hours]')
             ax4.set_ylabel('Transported molekules [mol]')
             ax4.grid(True, linestyle='--', linewidth=0.5)
@@ -209,13 +228,15 @@ def plot_graphs_from_export(export_file, selected_graphs):
             fig.tight_layout()
 
             plt.show()
-            
+
+            color_index = 0
+            color = colors[color_index % len(colors)]            
             
         elif graph_name == 4:
             # ------------------- Spotřeba energie ------------------------
             fig4, ax6 = plt.subplots(figsize=(7.1, 4.3))
 
-            ax6.plot(pressure1 / 100, EC, 'b-', label='Energy consumption [kWh/kg]')
+            ax6.plot(pressure1 / 100, EC, color=color, label='Energy consumption [kWh/kg]')
             ax6.set_xlabel('Pressure [bar]')
             ax6.set_ylabel('Energy consumption [kWh/kg]')
             #ax6.legend(loc='upper left')
@@ -247,16 +268,19 @@ def plot_graphs_from_export(export_file, selected_graphs):
             # ------------------- Proudová hustota a tlak vs čas ------------------------
             fig1, ax1 = plt.subplots(figsize=(7.1, 4.3))
 
-            ax1.plot(time1, pressure1_bar, 'b-', label='Pressure [bar]')
+            ax1.plot(time1, pressure1_bar, color=color, label='Pressure [bar]')
             ax1.set_xlabel('Time [hours]')
-            ax1.set_ylabel('Pressure [bar]', color='b')
-            ax1.tick_params(axis='y', labelcolor='b')
-            
+            ax1.set_ylabel('Pressure [bar]', color=color)
+            ax1.tick_params(axis='y', labelcolor=color)
+
+            color_index = color_index+1
+            color = colors[color_index % len(colors)]
+
             ax2 = ax1.twinx()
-            ax2.plot(time1, work_eff*100, 'r-', label='Work efficiency [%]')
-            ax2.set_ylabel('efficiency [%]', color='r')
+            ax2.plot(time1, work_eff*100, color=color, label='Work efficiency [%]')
+            ax2.set_ylabel('efficiency [%]', color=color)
             ax2.set_ylim(-5, 105)
-            ax2.tick_params(axis='y', labelcolor='r')
+            ax2.tick_params(axis='y', labelcolor=color)
             
             ax1.grid(True, linestyle='--', linewidth=0.5)
             #ax1.set_title('Proudová hustota a absolutní tlak na katodycké straně kompresoru')
@@ -264,11 +288,14 @@ def plot_graphs_from_export(export_file, selected_graphs):
             
             plt.show()
 
+            color_index = 0
+            color = colors[color_index % len(colors)]
+
         elif graph_name == 8:
             #------------------------- Net flux vs efficiency -----------------------
             fig7, (ax8, ax9) = plt.subplots(1, 2, figsize=(10.2, 4.3))
             
-            ax8.plot(net_flux, work_eff*100, 'r-', label='Work efficiency')
+            ax8.plot(net_flux, work_eff*100, color=color, label='Work efficiency')
 
             ax8.set_xlabel('Net flux [mol/s]')
             ax8.set_ylabel('Efficiency [%]')
@@ -278,15 +305,18 @@ def plot_graphs_from_export(export_file, selected_graphs):
             ax8.grid(True, linestyle='--', linewidth=0.5)
             ax8.set_title('Work efficiency vs Net flux')
 
-            ax9.plot(np.array(pressure1)/100, net_flux, 'b-', label='Net flux')
+            ax9.plot(np.array(pressure1)/100, net_flux, color=color, label='Net flux')
             ax9.set_xlabel('Pressure [bar]')
-            ax9.set_ylabel('Net flux [mol/s]', color= 'b' )
-            ax9.tick_params(axis='y', labelcolor='b')
+            ax9.set_ylabel('Net flux [mol/s]', color= color )
+            ax9.tick_params(axis='y', labelcolor= color)
+
+            color_index = color_index+1
+            color = colors[color_index % len(colors)]
 
             ax10 = ax9.twinx()
-            ax10.plot(np.array(pressure1)/100, work_eff*100, 'r-', label='Work efficiency')
-            ax10.set_ylabel('Work efficeincy [%]', color= 'r' )
-            ax10.tick_params(axis='y', labelcolor='r')
+            ax10.plot(np.array(pressure1)/100, work_eff*100, color=color, label='Work efficiency')
+            ax10.set_ylabel('Work efficeincy [%]', color= color )
+            ax10.tick_params(axis='y', labelcolor= color)
             ax9.grid(True, linestyle='--', linewidth=0.5)
             ax9.set_title('Pressure vs Net flux, efficiency')
 

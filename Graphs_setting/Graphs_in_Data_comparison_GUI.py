@@ -13,10 +13,19 @@ def plot_graphs_for_group(selected_graphs, group):
     x_value = group["x_value"]
     files = group["files"]
 
-    plt.rcParams['figure.dpi'] = 150
-    plt.rcParams['figure.autolayout'] = True
+    # -------------- Graph parameters and size -----------------
 
-    # Předpřipravíme grafy podle výběru
+    plt.rcParams.update({
+        'font.size': 12,
+        'font.family': 'sans-serif',
+        'axes.titlesize': 12,
+        'axes.labelsize': 12,
+        'legend.fontsize': 11,
+        'xtick.labelsize': 11,
+        'ytick.labelsize': 11,
+        'lines.linewidth': 2,
+    })
+
     figs_axes = {}
 
     if 1 in selected_graphs:
@@ -25,15 +34,15 @@ def plot_graphs_for_group(selected_graphs, group):
         figs_axes[1] = (fig1, ax1, ax2)
 
     if 4 in selected_graphs:
-        fig4, ax4 = plt.subplots()
+        fig4, ax4 = plt.subplots(figsize=(7.1, 4.3))
         figs_axes[4] = (fig4, ax4)
 
     if 5 in selected_graphs:
-        fig5, ax5 = plt.subplots()
+        fig5, ax5 = plt.subplots(figsize=(7.1, 4.3))
         figs_axes[5] = (fig5, ax5)
 
     if 6 in selected_graphs:
-        fig7, ax8 = plt.subplots()
+        fig7, ax8 = plt.subplots(figsize=(7.1, 4.3))
         figs_axes[6] = (fig7, ax8)
 
     if 6 in selected_graphs:
@@ -41,7 +50,8 @@ def plot_graphs_for_group(selected_graphs, group):
         ax10 = ax9.twinx()
         figs_axes[7] = (fig8, ax9, ax10)
 
-    colors = ['b', 'r', 'g', 'm', 'c']
+    colors = plt.cm.tab10.colors
+    #colors = ['b', 'r', 'g', 'm', 'c']
     color_index = 0
 
     for file in files:
@@ -73,6 +83,8 @@ def plot_graphs_for_group(selected_graphs, group):
         filename = os.path.basename(file)
         result = "_".join(os.path.splitext(filename)[0].split('_')[2:])
 
+#------------------------------- Axes ---------------------------------
+
         if 1 in selected_graphs:
             fig1, ax1, ax2 = figs_axes[1]
             ax1.plot(time1, pressure1_bar, label=f'{result} - Pressure', color=color, linewidth=1.5)
@@ -88,82 +100,64 @@ def plot_graphs_for_group(selected_graphs, group):
 
         if 6 in selected_graphs:
             fig7, ax8 = figs_axes[6]
-            ax8.plot(net_flux, work_eff, color=color, label=f'{result} - Work efficiency', linewidth=1.5)
-            """
-            #------------------------- Net flux vs efficiency -----------------------
-            fig7, (ax8, ax9) = plt.subplots(1, 2, figsize=(10.2, 4.3)) 
-            ax8.plot(net_flux, work_eff*100, 'r-', label='Work efficiency')
-            ax9.plot(np.array(pressure1_bar), net_flux, 'b-', label='Net flux')
-            ax10.plot(np.array(pressure1_bar), work_eff*100, 'r-', label='Work efficiency')
+            ax8.plot(net_flux, work_eff, color=color, label=f'{result}', linewidth=1.5)
 
-            ax8.set_xlabel('Net flux [mol/s]')
-            ax8.set_ylabel('Efficiency [%]')
-            ax8.tick_params(axis='y')
-
-            #ax8.legend(loc='upper right')
-            ax8.grid(True, linestyle='--', linewidth=0.5)
-            ax8.set_title('Work efficiency vs Net flux')
-
-            
-            ax9.set_xlabel('Pressure [bar]')
-            ax9.set_ylabel('Net flux [mol/s]', color= 'b' )
-            ax9.tick_params(axis='y', labelcolor='b')
-
-            ax10 = ax9.twinx()
-            
-            ax10.set_ylabel('Work efficeincy [%]', color= 'r' )
-            ax10.tick_params(axis='y', labelcolor='r')
-            ax9.grid(True, linestyle='--', linewidth=0.5)
-            ax9.set_title('Pressure vs Net flux, efficiency')
-
-            plt.show()
-            """
         if 6 in selected_graphs:
             fig8, ax9, ax10 = figs_axes [7]
-            ax9.plot(pressure1_bar, net_flux, color=color, label=f'{result} - Net flux')
-            ax10.plot(pressure1_bar, work_eff, color=color, label=f'{result} - Work efficiency')
+            ax9.plot(pressure1_bar, net_flux, color=color, label=f'{result}')
+            ax10.plot(pressure1_bar, work_eff, color=color, label=f'{result}')
 
-
-    # Nastavení popisků, legend atd. - pouze jednou po přidání všech křivek
+    # ------------------- Current density and pressure vs. time ------------------------
     if 1 in selected_graphs:
         ax1.set_xlabel('Time [hours]')
-        ax1.set_ylabel('Pressure [Bar]', color='b')
-        ax2.set_ylabel('Current Density [A/cm²]', color='g')
-        ax1.tick_params(axis='y', labelcolor='b')
-        ax2.tick_params(axis='y', labelcolor='g')
+        ax1.set_ylabel('Pressure [Bar]')
+        ax2.set_ylabel('Current Density [A/cm²]')
+        ax1.tick_params(axis='y')
+        ax2.tick_params(axis='y')
         ax1.grid(True, linestyle='--', alpha=0.6)
         ax1.legend(loc='upper left', fontsize=9)
         ax2.legend(loc='upper right', fontsize=9)
         ax1.set_title(f'Pressure & Current Density vs Time @ U = {x_value} V')
+        plt.tight_layout()
 
+    # -------------------- Energy consumption vs. pressure -------------------
     if 4 in selected_graphs:
         ax4.set_xlabel('Pressure [Bar]')
         ax4.set_ylabel('Energy consumption [kWh/kg]')
         ax4.legend()
         ax4.grid(True, linestyle='--', alpha=0.6)
         ax4.set_title(f'Energy Consumption vs Pressure @ U = {x_value} V')
+        plt.tight_layout()
 
+    # --------------------------- Efficiency vs. time------------------------    
     if 5 in selected_graphs:
         ax5.set_xlabel('Time [h]')
         ax5.set_ylabel('Efficiency [%]')
-        ax5.legend()
+        ax5.legend(loc='lower left')
         ax5.grid(True, linestyle='--', alpha=0.6)
         ax5.set_title(f'Efficiency vs Time @ U = {x_value} V')
+        plt.tight_layout()
 
+    #------------------------- Net flux vs efficiency -----------------------
     if 6 in selected_graphs:
+        ax8.set_title('Net flux vs efficiency')
         ax8.set_xlabel('Net flux [mol/s]')
         ax8.set_ylabel('Efficiency [%]')
+        ax8.legend(loc='upper right')
         ax8.tick_params(axis='y')
         ax8.grid(True, linestyle='--', linewidth=0.5)
+        plt.tight_layout()        
              
     if 6 in selected_graphs:
         ax9.set_xlabel('Pressure [bar]')
-        ax9.set_ylabel('Net flux [mol/s]', color= 'b' )
-        ax9.tick_params(axis='y', labelcolor='b')
+        ax9.set_ylabel('Net flux [mol/s]')
+        ax9.legend(loc='center right')
+        ax9.tick_params(axis='y')
         ax9.grid(True, linestyle='--', linewidth=0.5)
         ax9.set_title('Pressure vs Net flux, efficiency')
-        ax10.set_ylabel('Work efficeincy [%]', color= 'r' )
-        ax10.tick_params(axis='y', labelcolor='r')
+        ax10.set_ylabel('Work efficeincy [%]')
+        ax10.tick_params(axis='y')
+        plt.tight_layout()
 
     plt.show()
 
