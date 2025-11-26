@@ -250,9 +250,18 @@ def plot_graphs_from_export(export_file, selected_graphs):
             # ------------------- Účinnosti ------------------------
             fig2, ax2 = plt.subplots(figsize=(7.1, 4.3))
 
-            ax2.plot(time1, voltage_eff*100, 'b-', label='Voltage efficiency')
-            ax2.plot(time1[1:], flux_eff[1:]*100, 'r-', label='Flux efficiency')
-            ax2.plot(time1, work_eff*100, 'g-', label='Work efficiency')
+            ax2.plot(time1, voltage_eff*100, color=color, label='Voltage efficiency')
+
+            color_index = color_index+1
+            color = colors[color_index % len(colors)]
+
+            ax2.plot(time1[1:], flux_eff[1:]*100, color=color, label='Flux efficiency')
+
+            color_index = color_index+1
+            color = colors[color_index % len(colors)]
+
+            ax2.plot(time1, work_eff*100, color=color , label='Work efficiency')
+            
             ax2.set_xlabel('Time [hours]')
             ax2.set_ylabel('Efficiency [%]')
             ax2.yaxis.set_major_formatter(FuncFormatter(lambda y, _: f'{y:.0f}'))
@@ -263,6 +272,9 @@ def plot_graphs_from_export(export_file, selected_graphs):
             fig2.tight_layout()
 
             plt.show()
+
+            color_index = 0
+            color = colors[color_index % len(colors)]
             
         elif graph_name == 6:
             # ------------------- Proudová hustota a tlak vs čas ------------------------

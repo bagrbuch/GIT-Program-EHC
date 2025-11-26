@@ -224,8 +224,23 @@ def dataplot(file_path, chronoamp1,pressure_sensor1_txt, additional_file_path,th
     A = 5*10**-4                #[m2] active area of the fuel cell
     F = 96485.3321233100184     #[C/mol]
 
-    thickness_val=float(thickness.get())
-    volume=float(volume.get())
+
+    def get_float(val):
+        try:
+            value = val.get()
+        except AttributeError:
+            value = val
+
+        try:
+            return float(value)
+        except (ValueError, TypeError):
+            return None
+
+    thickness_val = get_float(thickness)
+    volume = get_float(volume)
+
+    #thickness_val=float(thickness.get())
+    #volume=float(volume.get())
     d1 = thickness_val
     d = d1*10**-6           #thiknesss of the membrane (25.4µ nafion 211,  50.8µ nafion 212  or 20.3µ nafion hp)
     # print(f"{d}")
@@ -494,7 +509,7 @@ def dataplot(file_path, chronoamp1,pressure_sensor1_txt, additional_file_path,th
 
     export(chronoamp1, volume, pressure_sensor1_txt, voltage, time1, pressure1, current_density1, forward_flux, back_diffusion, net,energy_per_mass_2, voltage_eff, flux_eff, work_eff, integration_forward_flux, integration_back_diff, integration_net, energy_per_mass2, Ieq, Peq, DH, VC, back_diff_eq, d1, DH_peak, DH_interval1, DH_interval2, DH_end, P_peak, P_interval1, P_interval2, P_end,  export_directory, additional_pressure_file=additional_file_path)
 
-    Graphs_in_Data_import_GUI.graphs_plot (selected_graphs, pot,P_peak,P_interval1, P_interval2, P_end, time1, time2, pressure1, current_density1, forward_flux, back_diffusion, net, energy_per_mass_2, integration_forward_flux, integration_back_diff, integration_net, voltage_eff, flux_eff, work_eff)
+    Graphs_in_Data_import_GUI.graphs_plot (export_directory, selected_graphs, pot,P_peak,P_interval1, P_interval2, P_end, time1, time2, pressure1, current_density1, forward_flux, back_diffusion, net, energy_per_mass_2, integration_forward_flux, integration_back_diff, integration_net, voltage_eff, flux_eff, work_eff)
 
 #------------------------------Function for plotting graphs (moved to Graphs setting)-------------------
 
