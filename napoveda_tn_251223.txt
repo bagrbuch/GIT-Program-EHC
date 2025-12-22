@@ -31,8 +31,11 @@ cd GIT-Program-EHC
 
 deactivate
 
-Přidání nového souboru
+Přidání nového souboru nebo push změny v souboru na server:
 git add <file>
 git status
 git commit -m <message> 
 git push https://github.com/bagrbuch/GIT-Program-EHC development_ver_potenciostatic
+
+Synchronizace lokální branche s githubem:
+git pull
