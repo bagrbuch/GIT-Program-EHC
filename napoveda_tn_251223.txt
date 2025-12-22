@@ -1,0 +1,38 @@
+cd dev (home pc)
+cd dev/ehc (work pc)
+
+sudo apt install gh
+sudo apt install git
+
+## https://docs.github.com/en/github-cli/github-cli/quickstart
+
+check login: gh auth status
+gh auth login
+create personal access token: https://github.com/settings/tokens
+
+gh repo view bagrbuch/GIT-Program-EHC
+gh repo clone bagrbuch/GIT-Program-EHC
+
+cd ..
+
+sudo apt install python3-venv
+
+python3 -m venv ehc_venv
+
+source ehc_venv/bin/activate
+
+pip3 install:
+numpy
+scipy
+matplotlib
+customtkinter
+
+cd GIT-Program-EHC
+
+deactivate
+
+Přidání nového souboru
+git add <file>
+git status
+git commit -m <message> 
+git push origin bagrbuch/GIT-Program-EHC
