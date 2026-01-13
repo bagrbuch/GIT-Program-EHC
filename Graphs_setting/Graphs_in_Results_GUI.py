@@ -2,7 +2,13 @@ import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.ticker import FuncFormatter
-matplotlib.use('TkAgg')
+
+try:
+    matplotlib.use('TkAgg')
+except ImportError:
+    matplotlib.use('Agg')
+
+import matplotlib.pyplot as plt
 from scipy.optimize import leastsq
 
 #------------------ Function to format percentage ------------------------------------

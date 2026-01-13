@@ -1,6 +1,11 @@
 import matplotlib.pyplot as plt
 import matplotlib
-matplotlib.use('TkAgg')
+
+try:
+    matplotlib.use('TkAgg')
+except ImportError:
+    matplotlib.use('Agg')
+    
 import numpy as np
 import os
 from matplotlib.ticker import FuncFormatter

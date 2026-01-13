@@ -1,6 +1,13 @@
 import os
 import numpy as np
+import matplotlib
 import matplotlib.pyplot as plt
+
+try:
+    matplotlib.use('TkAgg')
+except ImportError:
+    matplotlib.use('Agg')
+
 import matplotlib.colors as mcolors
 from scipy.optimize import curve_fit   
 from matplotlib import rc, rcParams
