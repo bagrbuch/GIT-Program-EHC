@@ -21,8 +21,12 @@ def process_all_folders(base_directory, thickness_var, volume_var):
         csv_path = os.path.join(folder_path, csv_file_name)
         txt_path = os.path.join(folder_path, txt_file_name)
 
+        print(f"csv_path: {csv_path}")
+        print(f"txt_path: {txt_path}")
+
         # Fallback: pokud soubor neexistuje, hledej první soubor daného typu
         if not os.path.exists(csv_path):
+            print("  -> Soubor pressures.csv nenalezen, hledání prvního CSV souboru v adresáři.")
             csv_files = [f for f in os.listdir(folder_path) if f.lower().endswith(".csv")]
             if csv_files:
                 csv_path = os.path.join(folder_path, csv_files[0])
@@ -41,6 +45,9 @@ def process_all_folders(base_directory, thickness_var, volume_var):
         # Přesun nebo přejmenování souborů na standardní názvy
         target_csv_path = os.path.join(folder_path, "pressures.csv")
         target_txt_path = os.path.join(folder_path, "potenciostat.txt")
+
+        print(f"Target CSV path: {target_csv_path}")
+        print(f"Target TXT path: {target_txt_path}")
 
         if csv_path != target_csv_path:
             os.rename(csv_path, target_csv_path)
